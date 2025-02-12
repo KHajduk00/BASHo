@@ -1,0 +1,14 @@
+# Virtual environment
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Generated installation files
+ask-basho
+
+# OS specific files
+.DS_Store
+Thumbs.db
