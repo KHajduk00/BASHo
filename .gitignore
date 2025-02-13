@@ -6,7 +6,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Generated installation files
+# Generated installation files and config
+config.json
 ask-basho
 
 # OS specific files
