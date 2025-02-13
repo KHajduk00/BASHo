@@ -1,6 +1,6 @@
 # BASHō - Your Linux Terminal Assistant
 
-BASHō is a super-lightweight and efficient terminal assistant designed to help users navigate and utilize Linux efficiently. Inspired by both the Bash shell and the haiku poet Matsuo Bashō, this tool provides concise, relevant Linux command-line assistance using the Claude 3 Haiku model via DuckDuckGo Search.
+BASHō is a super-lightweight and efficient terminal assistant designed to help users navigate and utilize Linux efficiently. Inspired by both the Bash shell and the haiku poet Matsuo Bashō, this tool provides concise, relevant Linux command-line assistance using multiple llm models (Claude 3 Haiku recommended) via DuckDuckGo Search.
 
 ## Features
 - **Minimalist Responses**: Provides short and to-the-point Linux-related answers.
@@ -62,7 +62,7 @@ rm -rf .venv
 ```
 
 ## Notes
-- The tool uses the Claude 3 Haiku model via DuckDuckGo Search.
+- The tool uses: gpt-4o-mini, llama-3.3-70b, claude-3-haiku, o3-mini, mixtral-8x7b models via DuckDuckGo Search.
 - Responses are optimized for Linux command-line usage.
 - If you encounter issues, ensure your Python environment and dependencies are correctly installed.
 - IT REQUIRES INTERNET ACCESS
@@ -71,7 +71,7 @@ rm -rf .venv
 
 ### ✅ Current Features:
 
-    AI-powered Linux assistant using Claude-3-Haiku via DuckDuckGo Search
+    AI-powered Linux assistant using multiple models via DuckDuckGo Search
     Simple terminal-based interaction
     Answers are concise and Linux-focused
     Uses duckduckgo_search API for responses
@@ -80,10 +80,8 @@ rm -rf .venv
 
 #### Short-Term Goals:
 
-    Model Selection: Allow users to switch between available AI models (e.g., gpt-4o-mini, mixtral-8x7b)
     Session History: Store recent queries and responses to go back to them.
     
-
 #### Mid-Term/Long-Term Goals:
 
     Image Search: Enable image lookup for Linux-related topics
@@ -93,7 +91,7 @@ rm -rf .venv
 
 ## Current Version:
 
-- v0.1.0 (check CHANGELOG.md or commits to keep track with changes).
+- v0.2.0 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
