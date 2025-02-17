@@ -75,23 +75,11 @@ rm -rf .venv
     Simple terminal-based interaction
     Answers are concise and Linux-focused
     Uses duckduckgo_search API for responses
-
-### 🚀 Upcoming Features & Improvements:
-
-#### Short-Term Goals:
-
-    Session History: Store recent queries and responses to go back to them.
-    
-#### Mid-Term/Long-Term Goals:
-
-    Image Search: Enable image lookup for Linux-related topics
-    Search Functionality: Add a search command to perform DuckDuckGo web searches
-    News Lookup: Implement a news command to fetch Linux-related news
-    Video Search: Allow users to find Linux-related tutorials via ddgs.videos()
+    Session History: Store recent queries and responses to go back to them (Sending history back to LLM still to be added).
 
 ## Current Version:
 
-- v0.2.0 (check CHANGELOG.md or commits to keep track with changes).
+- v0.3.0 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.

@@ -3,11 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- Session History: Store recent queries and responses
 - Image Search: Enable Linux-related image lookup
 - Search Functionality: Add DuckDuckGo search command
 - News Lookup: Fetch Linux-related news
 - Video Search: Find Linux-related tutorials via ddgs.videos()
+
+## [v0.3.0] - 2025-02-17
+### Added
+- Session History: Store recent queries and responses (feeding back into BASHō to be added)
 
 ## [v0.2.0] - 2025-02-13
 ### Added
