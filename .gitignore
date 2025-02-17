@@ -13,3 +13,6 @@ ask-basho
 # OS specific files
 .DS_Store
 Thumbs.db
+
+# Ignore conversations directory
+conversations/

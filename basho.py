@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from duckduckgo_search import DDGS
+from conversation_history import ConversationHandler
 
 CONFIG = Path(__file__).parent / "config.json"
 MODELS = {"1":"gpt-4o-mini",
@@ -46,6 +47,8 @@ def get_model():
 
 def main():
     model = get_model()
+    conversation_handler = ConversationHandler()
+    current_exchanges = []
 
     print("Welcome to BASHō - Your Linux Terminal Assistant! Type 'exit' to quit.")
     
@@ -57,6 +60,8 @@ def main():
         visible_input = input("You: ")
         
         if visible_input.lower() == 'exit':
+            if current_exchanges:
+                conversation_handler.save_conversation(model, current_exchanges)
             print("Jaa, mata ne! See you later!")
             break
         
@@ -65,6 +70,13 @@ def main():
         try:
             response = ddgs.chat(actual_query, model=model)
             print("BASHō:", response)
+            
+            # Store the exchange
+            current_exchanges.append({
+                "user": visible_input,
+                "basho": response
+            })
+            
         except Exception as error:
             print("Error:", error)
 
