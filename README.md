@@ -6,7 +6,7 @@ BASHō is a super-lightweight and efficient terminal assistant designed to help 
 - **Minimalist Responses**: Provides short and to-the-point Linux-related answers.
 - **Context-Aware Assistance**: Answers only Linux-related queries and avoids unnecessary details.
 - **Easy Installation**: Simple setup with a provided install script.
-- **Seamless Execution**: Runs directly from the terminal using the `ask-basho` command.
+- **Seamless Execution**: Runs directly from the terminal using the `ask-basho` or `bsho "<question>"` command.
 
 ## Installation
 To install BASHō, run the following commands:
@@ -34,6 +34,12 @@ Now, you can use BASHō by simply typing:
 ask-basho
 ```
 
+Or:
+
+```bash
+bsho "<your question here>"
+```
+
 ## Usage
 1. Start the assistant by running:
    ```bash
@@ -42,12 +48,25 @@ ask-basho
 2. Type your Linux-related question and press Enter.
 3. To exit, type `exit`.
 
+Or:
+
+1. Give quick question to the assistant by running:
+   ```bash
+   bsho "<question>"
+   ```
+2. Wait a second or two to receive the answer.
+
 ### Example:
 ```
 $ ask-basho
 Welcome to BASHō - Your Linux Terminal Assistant! Type 'exit' to quit.
 You: How do I list all files in a directory?
 BASHō: Use `ls -a` to list all files, including hidden ones.
+```
+
+```
+$ bsho "how to create a folder?"
+BASHō: To create a folder in the Linux terminal, use the `mkdir` command followed by the name of the new folder.
 ```
 
 ## Dependencies
@@ -76,10 +95,11 @@ rm -rf .venv
     Answers are concise and Linux-focused
     Uses duckduckgo_search API for responses
     Session History: Store recent queries and responses to go back to them.
+    Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
 
 ## Current Version:
 
-- v0.4.0 (check CHANGELOG.md or commits to keep track with changes).
+- v0.4.1 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.

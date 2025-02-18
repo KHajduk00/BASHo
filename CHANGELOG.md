@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 - News Lookup: Fetch Linux-related news
 - Video Search: Find Linux-related tutorials via ddgs.videos()
 
+## [v0.4.1] - 2025-02-18
+### Added
+- Added a command -- bsho "<question>" -- that allows for a quick question that does not start a conversation (and by extension is not stored in history).
+### Thanks to:
+- User GalaxAI for suggesting this to me
+
 ## [v0.4.0] - 2025-02-18
 ### Added
 - Session History Loading: Now you are able to load in one previous conversation back into the llm! (might blow up if conversation is really long, haven't tested yet)

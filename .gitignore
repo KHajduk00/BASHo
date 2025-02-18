@@ -9,6 +9,7 @@ __pycache__/
 # Generated installation files and config
 config.json
 ask-basho
+bsho
 
 # OS specific files
 .DS_Store
