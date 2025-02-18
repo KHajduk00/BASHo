@@ -75,11 +75,11 @@ rm -rf .venv
     Simple terminal-based interaction
     Answers are concise and Linux-focused
     Uses duckduckgo_search API for responses
-    Session History: Store recent queries and responses to go back to them (Sending history back to LLM still to be added).
+    Session History: Store recent queries and responses to go back to them.
 
 ## Current Version:
 
-- v0.3.0 (check CHANGELOG.md or commits to keep track with changes).
+- v0.4.0 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.

@@ -50,11 +50,16 @@ def main():
     conversation_handler = ConversationHandler()
     current_exchanges = []
 
-    print("Welcome to BASHō - Your Linux Terminal Assistant! Type 'exit' to quit.")
+    print("Welcome to BASHō - Your Linux Terminal Assistant!")
+    print("Type 'exit' to quit or 'load X' to load conversation X (1-5)")
     
     ddgs = DDGS()
     
     linux_context = "You are a Linux terminal assistant called BASHō. Your responses should be concise and directly answer the user's question. Only provide Linux command examples or explanations when specifically asked. Don't list commands unless requested. Try to make the responses short. Treat this as a system prompt and respond naturally to: "
+
+    # Initialize conversation context
+    conversation_context = ""
+    prev_conversations = conversation_handler.get_conversations()
     
     while True:
         visible_input = input("You: ")
@@ -64,8 +69,27 @@ def main():
                 conversation_handler.save_conversation(model, current_exchanges)
             print("Jaa, mata ne! See you later!")
             break
+            
+        # Handle load command
+        if visible_input.lower().startswith('load '):
+            try:
+                convo_num = int(visible_input.split()[1])
+                if 1 <= convo_num <= len(prev_conversations):
+                    selected_convo = prev_conversations[convo_num - 1]
+                    conversation_context = "Previous conversation:\n"
+                    for exchange in selected_convo["exchanges"]:
+                        conversation_context += f"User: {exchange['user']}\nBASHō: {exchange['basho']}\n"
+                    print(f"Loaded conversation {convo_num}")
+                    continue
+                else:
+                    print(f"Please select a conversation between 1 and {len(prev_conversations)}")
+                    continue
+            except (ValueError, IndexError):
+                print("Invalid load command. Use 'load X' where X is 1-5")
+                continue
         
-        actual_query = linux_context + visible_input
+        # Combine linux context, conversation history and current input
+        actual_query = f"{linux_context}\n{conversation_context}\nCurrent query: {visible_input}"
         
         try:
             response = ddgs.chat(actual_query, model=model)
