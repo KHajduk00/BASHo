@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Added a command -- bsho "<question>" -- that allows for a quick question that does not start a conversation (and by extension is not stored in history).
 ### Thanks to:
-- User GalaxAI for suggesting this to me
+- User [GalaxAI](https://github.com/GalaxAI) for suggesting this to me
 
 ## [v0.4.0] - 2025-02-18
 ### Added
