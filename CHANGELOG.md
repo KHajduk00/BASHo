@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 - News Lookup: Fetch Linux-related news
 - Video Search: Find Linux-related tutorials via ddgs.videos()
 
+## [v0.4.2] - 2025-02-20
+### Added
+- Added docstrings and typing for better code readability (even though its a microscopic project)
+
 ## [v0.4.1] - 2025-02-18
 ### Added
 - Added a command -- bsho "<question>" -- that allows for a quick question that does not start a conversation (and by extension is not stored in history).
