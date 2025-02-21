@@ -70,7 +70,7 @@ BASHō: To create a folder in the Linux terminal, use the `mkdir` command follow
 ```
 
 ```
-$ bsho -v "how to create a folder?"
+$ bsho -v "how to create groups in linux?"
 Top 3 Video Results:
 ==================================================
 
