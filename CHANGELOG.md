@@ -8,14 +8,20 @@ All notable changes to this project will be documented in this file.
 - News Lookup: Fetch Linux-related news
 - Video Search: Find Linux-related tutorials via ddgs.videos()
 
-## [v0.4.2] - 2025-02-20
+## [v0.6.1] - 2025-02-21
+### Added
+- Added a '-v' flag to the 'bsho' command, now when typing 'bsho -v "How to install NixOS"' user will receive top three results related to the passed query.
+### Mics
+- Changed versioning to better represent what is going on.
+
+## [v0.5.1] - 2025-02-20
 ### Added
 - Added docstrings and typing for better code readability (even though its a microscopic project)
 
-## [v0.4.1] - 2025-02-18
+## [v0.5.0] - 2025-02-18
 ### Added
 - Added a command -- bsho "<question>" -- that allows for a quick question that does not start a conversation (and by extension is not stored in history).
-### Thanks to:
+### Thanks to
 - User [GalaxAI](https://github.com/GalaxAI) for suggesting this to me
 
 ## [v0.4.0] - 2025-02-18

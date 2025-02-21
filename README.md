@@ -69,6 +69,30 @@ $ bsho "how to create a folder?"
 BASHō: To create a folder in the Linux terminal, use the `mkdir` command followed by the name of the new folder.
 ```
 
+```
+$ bsho -v "how to create a folder?"
+Top 3 Video Results:
+==================================================
+
+[Video 1]
+Title: How to Create Groups in Linux
+Duration: 5:32
+URL: https://www.youtube.com/watch?v=example1
+Views: 25000
+
+[Video 2]
+Title: Linux User Groups Tutorial
+Duration: 8:15
+URL: https://www.youtube.com/watch?v=example2
+Views: 18500
+
+[Video 3]
+Title: Managing Linux Groups - Complete Guide
+Duration: 12:45
+URL: https://www.youtube.com/watch?v=example3
+Views: 32000
+```
+
 ## Dependencies
 - Python 3
 - `duckduckgo-search` Python package
@@ -96,10 +120,11 @@ rm -rf .venv
     Uses duckduckgo_search API for responses
     Session History: Store recent queries and responses to go back to them.
     Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
+    Video Search: Find videos using 'bsho' command followed by '-v' flag
 
 ## Current Version:
 
-- v0.4.1 (check CHANGELOG.md or commits to keep track with changes).
+- v0.6.1 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
