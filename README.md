@@ -2,6 +2,10 @@
 
 BASHō is a super-lightweight and efficient terminal assistant designed to help users navigate and utilize Linux efficiently. Inspired by both the Bash shell and the haiku poet Matsuo Bashō, this tool provides concise, relevant Linux command-line assistance using multiple llm models (Claude 3 Haiku recommended) via DuckDuckGo Search.
 
+## WARNING!
+
+By using this app, you acknowledge that you will not use it in a way that infringes on DuckDuckGo's terms. The official DuckDuckGo website can be found at https://duckduckgo.com.
+
 ## Features
 - **Minimalist Responses**: Provides short and to-the-point Linux-related answers.
 - **Context-Aware Assistance**: Answers only Linux-related queries and avoids unnecessary details.
