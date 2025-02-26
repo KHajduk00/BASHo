@@ -83,6 +83,50 @@ def format_video_result(video: dict) -> str:
         f"Views: {video['statistics'].get('viewCount', 'N/A')}\n"
     )
 
+def format_text_result(text: dict) -> str:
+    """
+    Format result of text search
+
+    Args:
+        text: Dictionary containing text info
+
+    Returns:
+        str: Fromatted text string
+    """
+    return (
+        f"Title: {text['title']}\n"
+        f"URL: {text['href']}\n"
+        f"Content: {text['body']}\n"
+    )
+
+def search_text(query: str) -> None:
+    """
+    Search for text and show top 5 results.
+
+    Args:
+        query: Search query string
+    """
+    try:
+        with DDGS() as ddgs:
+            results = ddgs.text(
+                keywords=query,
+                region="wt-wt",
+                safesearch="moderate",
+                max_results=5
+            )
+            if not results:
+                print ("No text found.")
+                return
+            
+            print("\nTop 3 Text Results:")
+            print("=" * 50)
+            for i, text in enumerate(results, 1):
+                print(f"\n[Result {i}]")
+                print(format_text_result(text))
+                
+    except Exception as error:
+        print("Error searching text:", error)
+
 def search_videos(query: str) -> None:
     """
     Search for videos and show top 3 results.
@@ -119,15 +163,23 @@ def main() -> None:
     Exits with error if no question is provided.
     """
     if len(sys.argv) < 2:
-        print("Usage:\nbsho \"your question here\"\nbsho -v \"your video search here\"")
+        print("Usage:\nbsho \"your question here\"\nbsho -v \"your video search here\"\nbsho -t \"your text search here\"")
         sys.exit(1)
-
+    
     # Check if video flag was used
     if sys.argv[1] == "-v":
         if len(sys.argv) < 3:
             print("Please provide a search query after -v flag")
             sys.exit(1)
         search_videos(sys.argv[2])
+        return
+
+    # Check if text flag was used
+    if sys.argv[1] == "-t":
+        if len(sys.argv) < 3:
+            print("Please provide a search query after -t flag")
+            sys.exit(1)
+        search_text(sys.argv[2])
         return
 
     question = sys.argv[1]
