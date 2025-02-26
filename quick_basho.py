@@ -118,7 +118,7 @@ def search_text(query: str) -> None:
                 print ("No text found.")
                 return
             
-            print("\nTop 3 Text Results:")
+            print("\nTop 5 Text Results:")
             print("=" * 50)
             for i, text in enumerate(results, 1):
                 print(f"\n[Result {i}]")

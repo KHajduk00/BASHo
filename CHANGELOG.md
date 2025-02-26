@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 - Image Search: Enable Linux-related image lookup
-- Search Functionality: Add DuckDuckGo search command
 - News Lookup: Fetch Linux-related news
+
+## [v0.7.1] - 2025-02-26
+### Added
+- Added a '-t' flag to the 'bsho' command, now when typing 'bsho -t "How to install NixOS"' user will receive top five results related to the passed query.
 
 ## [v0.6.1] - 2025-02-21
 ### Added

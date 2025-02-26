@@ -85,16 +85,23 @@ URL: https://www.youtube.com/watch?v=example1
 Views: 25000
 
 [Video 2]
-Title: Linux User Groups Tutorial
-Duration: 8:15
-URL: https://www.youtube.com/watch?v=example2
-Views: 18500
 
-[Video 3]
-Title: Managing Linux Groups - Complete Guide
-Duration: 12:45
-URL: https://www.youtube.com/watch?v=example3
-Views: 32000
+(...)
+```
+
+```
+$ bsho -t "archinstall guide"
+Top 5 Text Results:
+==================================================
+
+[Result 1]
+Title: Installation guide - ArchWiki
+URL: https://wiki.archlinux.org/title/Installation_guide
+Content: This document is a guide for installing Arch Linux using the live system booted from an installation medium made from an official installation image. The installation medium provides accessibility features which are described on the page Install Arch Linux with accessibility options.For alternative means of installation, see Category:Installation process.
+
+[Result 2]
+
+(...)
 ```
 
 ## Dependencies
@@ -125,10 +132,11 @@ rm -rf .venv
     Session History: Store recent queries and responses to go back to them.
     Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
     Video Search: Find videos using 'bsho' command followed by '-v' flag
+    Search Functionality: Find information using 'bsho' command followed by '-t' flag
 
 ## Current Version:
 
-- v0.6.1 (check CHANGELOG.md or commits to keep track with changes).
+- v0.7.1 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
