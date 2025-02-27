@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 - Image Search: Enable Linux-related image lookup
-- News Lookup: Fetch Linux-related news
+
+## [v0.8.1] - 2025-02-27
+### Added
+- Added a '-n' flag to the 'bsho' command, now when typing 'bsho -n "Linux Rust Drama"' user will receive top three results related to the passed query.
 
 ## [v0.7.1] - 2025-02-26
 ### Added

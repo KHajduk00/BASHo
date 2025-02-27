@@ -75,6 +75,7 @@ BASHō: To create a folder in the Linux terminal, use the `mkdir` command follow
 
 ```
 $ bsho -v "how to create groups in linux?"
+
 Top 3 Video Results:
 ==================================================
 
@@ -91,6 +92,7 @@ Views: 25000
 
 ```
 $ bsho -t "archinstall guide"
+
 Top 5 Text Results:
 ==================================================
 
@@ -100,6 +102,24 @@ URL: https://wiki.archlinux.org/title/Installation_guide
 Content: This document is a guide for installing Arch Linux using the live system booted from an installation medium made from an official installation image. The installation medium provides accessibility features which are described on the page Install Arch Linux with accessibility options.For alternative means of installation, see Category:Installation process.
 
 [Result 2]
+
+(...)
+```
+
+```
+$ bsho -n "tech industry update"
+
+Top 3 News Results:  
+==================================================  
+
+[News 1]  
+Title: Tech leader supports adoption of new coding language, calls its rise inevitable  
+Date: 2025-02-21T17:06:00+00:00  
+Content: Among the issues raised about the new policy post, an industry expert corrected the assertion that some system maintainers might decide they simply don't want the new language, and that that's to be expected and accepted.  
+URL: https://www.example.com/news/coding_language_adoption  
+Source: techsource  
+
+[News 2]
 
 (...)
 ```
@@ -133,10 +153,11 @@ rm -rf .venv
     Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
     Video Search: Find videos using 'bsho' command followed by '-v' flag
     Search Functionality: Find information using 'bsho' command followed by '-t' flag
+    News search Functionality: Find news articles using 'bsho' command followed by '-n' flag
 
 ## Current Version:
 
-- v0.7.1 (check CHANGELOG.md or commits to keep track with changes).
+- v0.8.1 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
