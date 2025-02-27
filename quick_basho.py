@@ -99,6 +99,24 @@ def format_text_result(text: dict) -> str:
         f"Content: {text['body']}\n"
     )
 
+def format_news_result(text: dict) -> str:
+    """
+    Format result of news search
+
+    Args:
+        news: Dictionary containing news info
+
+    Returns:
+        str: Fromatted news string
+    """
+    return (
+        f"Title: {text['title']}\n"
+        f"Date: {text['date']}\n"
+        f"Content: {text['body']}\n"
+        f"URL: {text['url']}\n"
+        f"Source: {text['source']}\n"
+    )
+
 def search_text(query: str) -> None:
     """
     Search for text and show top 5 results.
@@ -155,6 +173,33 @@ def search_videos(query: str) -> None:
     except Exception as error:
         print("Error searching videos:", error)
 
+def search_news(query: str) -> None:
+    """
+    Search for news and show top 3 results.
+
+    Args:
+        query: Search query string
+    """
+    try:
+        with DDGS() as ddgs:
+            results = ddgs.news(
+                keywords=query,
+                region="wt-wt",
+                safesearch="moderate",
+                max_results=3
+            )
+            if not results:
+                print("No news found.")
+                return
+
+            print("\nTop 3 News Results:")
+            print("=" * 50)
+            for i, news in enumerate(results, 1):
+                print(f"\n[News {i}]")
+                print(format_news_result(news))
+
+    except Exception as error:
+        print("Error searching news:", error)
 
 def main() -> None:
     """
@@ -163,7 +208,7 @@ def main() -> None:
     Exits with error if no question is provided.
     """
     if len(sys.argv) < 2:
-        print("Usage:\nbsho \"your question here\"\nbsho -v \"your video search here\"\nbsho -t \"your text search here\"")
+        print("Usage:\nbsho \"your question here\"\nbsho -v \"your video search here\"\nbsho -t \"your text search here\"\nbsho -n \"your news search here\"")
         sys.exit(1)
     
     # Check if video flag was used
@@ -180,6 +225,14 @@ def main() -> None:
             print("Please provide a search query after -t flag")
             sys.exit(1)
         search_text(sys.argv[2])
+        return
+
+    # Check if news flag was used
+    if sys.argv[1] == "-n":
+        if len(sys.argv) < 3:
+            print("Please provide a search query after -n flag")
+            sys.exit(1)
+        search_news(sys.argv[2])
         return
 
     question = sys.argv[1]
