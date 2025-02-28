@@ -3,8 +3,9 @@
 import sys
 import json
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Union
 from duckduckgo_search import DDGS
+from conversation_history import ConversationHandler
 
 CONFIG = Path(__file__).parent / "config.json"
 MODELS: Dict[str, str] = {
@@ -201,15 +202,95 @@ def search_news(query: str) -> None:
     except Exception as error:
         print("Error searching news:", error)
 
+def load_conversation(convo_num: int) -> None:
+    """
+    Load a conversation and start interactive chat mode.
+    
+    Args:
+        convo_num: Number of the conversation to load (1-5)
+    """
+    conversation_handler = ConversationHandler()
+    prev_conversations = conversation_handler.get_conversations()
+    
+    if not prev_conversations:
+        print("No previous conversations found.")
+        return
+    
+    if not 1 <= convo_num <= len(prev_conversations):
+        print(f"Please select a conversation between 1 and {len(prev_conversations)}")
+        return
+    
+    selected_convo = prev_conversations[convo_num - 1]
+    model = selected_convo["model"]
+    current_exchanges = selected_convo["exchanges"].copy()
+    
+    print(f"Loaded conversation {convo_num} (using model: {model})")
+    print("\nPrevious exchanges:")
+    for exchange in current_exchanges:
+        print(f"You: {exchange['user']}")
+        print(f"BASHō: {exchange['basho']}")
+    print("\nContinuing conversation... (Type 'exit' to quit)")
+    
+    conversation_context = "This is a continuation of our previous conversation. Here are our previous exchanges:\n"
+    for exchange in current_exchanges:
+        conversation_context += f"User: {exchange['user']}\nBASHō: {exchange['basho']}\n"
+    conversation_context += "\nNow we're continuing from where we left off. Please respond to: "
+    
+    linux_context = "You are a Linux terminal assistant called BASHō. Your responses should be concise and directly answer the user's question. Only provide Linux command examples or explanations when specifically asked. Don't list commands unless requested. Try to make the responses short. "
+    
+    ddgs = DDGS()
+    
+    while True:
+        visible_input = input("\nYou: ")
+        
+        if visible_input.lower() == 'exit':
+            if current_exchanges:
+                conversation_handler.save_conversation(model, current_exchanges)
+            print("Jaa, mata ne! See you later!")
+            break
+        
+        actual_query = f"{linux_context}\n{conversation_context}{visible_input}"
+        
+        try:
+            response = ddgs.chat(actual_query, model=model)
+            print("BASHō:", response)
+            
+            # Store the exchange
+            current_exchanges.append({
+                "user": visible_input,
+                "basho": response
+            })
+            
+        except Exception as error:
+            print("Error:", error)
+
 def main() -> None:
     """
     Main function that processes a single question and returns BASHō's response.
     Single question can also be a search of videos.
+    Single question can also be a search of text.
+    Single question can also be a search of news.
+    Can continue previous conversations.
     Exits with error if no question is provided.
     """
     if len(sys.argv) < 2:
-        print("Usage:\nbsho \"your question here\"\nbsho -v \"your video search here\"\nbsho -t \"your text search here\"\nbsho -n \"your news search here\"")
+        print("Usage:")
+        print("bsho \"your question here\"")
+        print("bsho -v \"your video search here\"")
+        print("bsho -t \"your text search here\"")
+        print("bsho -n \"your news search here\"")
+        print("bsho -c<num> (Load and continue conversation number 1-5)")
         sys.exit(1)
+    
+    # Check if conversation flag was used (e.g., -c1, -c2, etc.)
+    if sys.argv[1].startswith("-c"):
+        try:
+            convo_num = int(sys.argv[1][2:])
+            load_conversation(convo_num)
+            return
+        except ValueError:
+            print("Invalid conversation number. Use -c1 to -c5.")
+            sys.exit(1)
     
     # Check if video flag was used
     if sys.argv[1] == "-v":
