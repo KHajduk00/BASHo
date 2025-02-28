@@ -60,7 +60,7 @@ Or:
    ```
 2. Wait a second or two to receive the answer.
 
-### Example:
+### Example of all flags/commands:
 ```
 $ ask-basho
 Welcome to BASHō - Your Linux Terminal Assistant! Type 'exit' to quit.
@@ -124,6 +124,12 @@ Source: techsource
 (...)
 ```
 
+```
+$ bsho -c<number>
+$ bsho -c3
+```
+ (aviable numbers are 5-1, where 5 is newest conversation and 1 is the oldest one)
+
 ## Dependencies
 - Python 3
 - `duckduckgo-search` Python package
@@ -157,7 +163,7 @@ rm -rf .venv
 
 ## Current Version:
 
-- v0.8.1 (check CHANGELOG.md or commits to keep track with changes).
+- v0.9.1 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
