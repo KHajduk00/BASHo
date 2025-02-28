@@ -151,15 +151,15 @@ rm -rf .venv
 
 ### ✅ Current Features:
 
-    AI-powered Linux assistant using multiple models via DuckDuckGo Search
-    Simple terminal-based interaction
-    Answers are concise and Linux-focused
-    Uses duckduckgo_search API for responses
-    Session History: Store recent queries and responses to go back to them.
+    AI-powered Linux assistant using multiple models via DuckDuckGo Search.
+    Simple terminal-based interaction.
+    Answers are concise and Linux-focused.
+    Uses duckduckgo_search API for responses.
+    Session History: Store recent queries and responses to go back to them, to load the conversation use '-c<number>' flag.
     Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
-    Video Search: Find videos using 'bsho' command followed by '-v' flag
-    Search Functionality: Find information using 'bsho' command followed by '-t' flag
-    News search Functionality: Find news articles using 'bsho' command followed by '-n' flag
+    Video Search: Find videos using 'bsho' command followed by '-v' flag.
+    Search Functionality: Find information using 'bsho' command followed by '-t' flag.
+    News search Functionality: Find news articles using 'bsho' command followed by '-n' flag.
 
 ## Current Version:
 
