@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 - Version command
 - Ability to configure the behaviour of flags/app (more results, more convos, ability to change the prompts etc.)
 
+## [v0.9.2] - 2025-03-03
+### Added
+- Added a '-h' flag that displays information like aviable models, aviable flags, and version of the app.
+
 ## [v0.9.1] - 2025-02-28
 ### Added
 - Added a '-c<number>' flag to the 'bsho' command, now when typing 'bsho -c5' user will be sent back to the newest conversation, the smaller the number is, the older the conversation, currently aviable conversations are numbers 1 to 5 to not create too many json files, in the future might add the ability to change the amount of stored conversations.

@@ -163,7 +163,7 @@ rm -rf .venv
 
 ## Current Version:
 
-- v0.9.1 (check CHANGELOG.md or commits to keep track with changes).
+- v0.9.2 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
