@@ -4,8 +4,6 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 - Image Search: Enable Linux-related image lookup
-- Help command
-- Version command
 - Ability to configure the behaviour of flags/app (more results, more convos, ability to change the prompts etc.)
 
 ## [v0.9.2] - 2025-03-03
