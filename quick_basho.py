@@ -2,13 +2,14 @@
 
 import sys
 import json
+import subprocess
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 from duckduckgo_search import DDGS
 from conversation_history import ConversationHandler
 
 # Version number for -h flag
-VERSION = "0.9.2"
+VERSION = "0.9.3"
 
 CONFIG = Path(__file__).parent / "config.json"
 MODELS: Dict[str, str] = {
@@ -19,34 +20,86 @@ MODELS: Dict[str, str] = {
     "5": "mixtral-8x7b"
 }
 
-def load_config() -> Optional[Dict[str, str]]:
+def load_config() -> Optional[Dict[str, any]]:
     """
     Load configuration from JSON file.
     
     Returns:
-        Optional[Dict[str, str]]: Configuration dict if valid, None otherwise
+        Optional[Dict[str, any]]: Configuration dict if valid, None otherwise
     """
     if CONFIG.exists():
         try:
             with CONFIG.open("r") as file:
                 config = json.load(file)
+                # Ensure basic structure exists
+                if not "search" in config:
+                    config["search"] = {}
+                if not "video" in config["search"]:
+                    config["search"]["video"] = {
+                        "max_results": 3,
+                        "region": "wt-wt",
+                        "safesearch": "moderate"
+                    }
+                if not "editor" in config:
+                    config["editor"] = "nano"
+                
+                # Verify model is valid
                 if config.get("model") in MODELS.values():
                     return config
+                
         except (json.JSONDecodeError, KeyError):
             pass
     return None
 
-def save_config(model: str) -> None:
+def save_config(model: str, config: Optional[Dict] = None) -> None:
     """
     Save model configuration to JSON file.
     
     Args:
         model: Name of the model to save
+        config: Existing config to update (optional)
     """
     CONFIG.parent.mkdir(parents=True, exist_ok=True)
-    with CONFIG.open("w") as file:
-        json.dump({"model": model}, file)
+    
+    if config is None:
+        config = {"model": model}
+    else:
+        config["model"] = model
         
+    # Ensure basic structure exists
+    if not "search" in config:
+        config["search"] = {}
+    if not "video" in config["search"]:
+        config["search"]["video"] = {
+            "max_results": 3,
+            "region": "wt-wt",
+            "safesearch": "moderate"
+        }
+    if not "editor" in config:
+        config["editor"] = "nano"
+    
+    with CONFIG.open("w") as file:
+        json.dump(config, file, indent=2)
+
+def edit_config() -> None:
+    """
+    Open the config file in the user's preferred editor.
+    """
+    config = load_config()
+    if not config:
+        # Create default config if it doesn't exist
+        save_config(MODELS["1"])
+        config = load_config()
+    
+    editor = config.get("editor", "nano")
+    
+    try:
+        subprocess.run([editor, str(CONFIG)])
+        print(f"Configuration updated.")
+    except Exception as e:
+        print(f"Error opening editor: {e}")
+        print(f"You can manually edit the config file at: {CONFIG}")
+
 def get_model() -> str:
     """
     Get the model choice from config or user input.
@@ -151,24 +204,29 @@ def search_text(query: str) -> None:
 
 def search_videos(query: str) -> None:
     """
-    Search for videos and show top 3 results.
+    Search for videos and show top results according to config.
 
     Args:
         query: Search query string
     """
+    config = load_config() or {"search": {"video": {"max_results": 3, "region": "wt-wt", "safesearch": "moderate"}}}
+    max_results = config["search"].get("video", {}).get("max_results", 3)
+    region = config["search"].get("video", {}).get("region", "wt-wt")
+    safesearch = config["search"].get("video", {}).get("safesearch", "moderate")
+    
     try:
         with DDGS() as ddgs:
             results = ddgs.videos(
                 keywords=query,
-                region="wt-wt",
-                safesearch="moderate",
-                max_results=3
+                region=region,
+                safesearch=safesearch,
+                max_results=max_results
             )
             if not results:
                 print("No videos found.")
                 return
 
-            print("\nTop 3 Video Results:")
+            print(f"\nTop {max_results} Video Results:")
             print("=" * 50)
             for i, video in enumerate(results, 1):
                 print(f"\n[Video {i}]")
@@ -278,11 +336,13 @@ def display_help() -> None:
     print("  bsho -t \"your search query\"          Search for text/web results")
     print("  bsho -n \"your search query\"          Search for news")
     print("  bsho -c<num>                         Continue conversation number <num> (1-5)")
+    print("  bsho -dev                            Edit configuration file")
     print("  bsho -h                              Display this help message")
     print("\nAvailable models:")
     for key, model in MODELS.items():
         print(f"  {key}: {model}")
     print("\nBASHō will remember your model preference after the first use.")
+    print("Use -dev flag to customize BASHō's behavior.")
 
 def main() -> None:
     """
@@ -300,12 +360,18 @@ def main() -> None:
         print("bsho -t \"your text search here\"")
         print("bsho -n \"your news search here\"")
         print("bsho -c<num> (Load and continue conversation number 1-5)")
+        print("bsho -dev (Edit configuration file)")
         print("bsho -h (Display help and version information)")
         sys.exit(1)
     
     # Check if help flag was used
     if sys.argv[1] == "-h" or sys.argv[1] == "--help":
         display_help()
+        return
+    
+    # Check if dev flag was used
+    if sys.argv[1] == "-dev":
+        edit_config()
         return
     
     # Check if conversation flag was used (e.g., -c1, -c2, etc.)
