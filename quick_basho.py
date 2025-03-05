@@ -40,6 +40,12 @@ def load_config() -> Optional[Dict[str, any]]:
                         "region": "wt-wt",
                         "safesearch": "moderate"
                     }
+                if not "text" in config["search"]:
+                    config["search"]["text"] = {
+                        "max_results": 5,
+                        "region": "wt-wt",
+                        "safesearch": "moderate"
+                    }
                 if not "editor" in config:
                     config["editor"] = "nano"
                 
@@ -72,6 +78,12 @@ def save_config(model: str, config: Optional[Dict] = None) -> None:
     if not "video" in config["search"]:
         config["search"]["video"] = {
             "max_results": 3,
+            "region": "wt-wt",
+            "safesearch": "moderate"
+        }
+    if not "text" in config["search"]:
+        config["search"]["text"] = {
+            "max_results": 5,
             "region": "wt-wt",
             "safesearch": "moderate"
         }
@@ -176,24 +188,39 @@ def format_news_result(text: dict) -> str:
 
 def search_text(query: str) -> None:
     """
-    Search for text and show top 5 results.
+    Search for text and show results according to config.
 
     Args:
         query: Search query string
     """
+    config = load_config() or {"search": {}}
+    
+    # Set defaults if text configuration doesn't exist
+    if not "text" in config["search"]:
+        config["search"]["text"] = {
+            "max_results": 5,
+            "region": "wt-wt", 
+            "safesearch": "moderate"
+        }
+        save_config(config.get("model", MODELS["1"]), config)
+    
+    max_results = config["search"]["text"].get("max_results", 5)
+    region = config["search"]["text"].get("region", "wt-wt")
+    safesearch = config["search"]["text"].get("safesearch", "moderate")
+    
     try:
         with DDGS() as ddgs:
             results = ddgs.text(
                 keywords=query,
-                region="wt-wt",
-                safesearch="moderate",
-                max_results=5
+                region=region,
+                safesearch=safesearch,
+                max_results=max_results
             )
             if not results:
-                print ("No text found.")
+                print("No text found.")
                 return
             
-            print("\nTop 5 Text Results:")
+            print(f"\nTop {max_results} Text Results:")
             print("=" * 50)
             for i, text in enumerate(results, 1):
                 print(f"\n[Result {i}]")
@@ -334,7 +361,7 @@ def display_help() -> None:
     print("  bsho \"your question here\"            Ask a question to BASHō")
     print("  bsho -v \"your search query\"          Search for videos")
     print("  bsho -t \"your search query\"          Search for text/web results")
-    print("  bsho -n \"your search query\"          Search for news")
+    print("  bsho -n \"your news search query\"     Search for news")
     print("  bsho -c<num>                         Continue conversation number <num> (1-5)")
     print("  bsho -dev                            Edit configuration file")
     print("  bsho -h                              Display this help message")
