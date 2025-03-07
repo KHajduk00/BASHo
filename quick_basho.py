@@ -46,6 +46,12 @@ def load_config() -> Optional[Dict[str, any]]:
                         "region": "wt-wt",
                         "safesearch": "moderate"
                     }
+                if not "news" in config["search"]:
+                    config["search"]["news"] = {
+                        "max_results": 3,
+                        "region": "wt-wt",
+                        "safesearch": "moderate"
+                    }
                 if not "editor" in config:
                     config["editor"] = "nano"
                 
@@ -84,6 +90,12 @@ def save_config(model: str, config: Optional[Dict] = None) -> None:
     if not "text" in config["search"]:
         config["search"]["text"] = {
             "max_results": 5,
+            "region": "wt-wt",
+            "safesearch": "moderate"
+        }
+    if not "news" in config["search"]:
+        config["search"]["news"] = {
+            "max_results": 3,
             "region": "wt-wt",
             "safesearch": "moderate"
         }
@@ -269,19 +281,34 @@ def search_news(query: str) -> None:
     Args:
         query: Search query string
     """
+    config = load_config() or {"search": {"news": {"max_results": 3, "region": "wt-wt", "safesearch": "moderate"}}}
+
+    # Set defaults if news configuration doesn't exist
+    if not "news" in config["search"]:
+        config["search"]["news"] = {
+           "max_results": 3,
+           "region": "wt-wt",
+           "safesearch": "moderate"
+        }
+        save_config(config.get("model", MODELS["1"]), config)
+ 
+    max_results = config["search"]["news"].get("max_results", 3)
+    region = config["search"]["news"].get("region", "wt-wt")
+    safesearch = config["search"]["news"].get("safesearch", "moderate")
+    
     try:
         with DDGS() as ddgs:
             results = ddgs.news(
                 keywords=query,
-                region="wt-wt",
-                safesearch="moderate",
-                max_results=3
+                region=region,
+                safesearch=safesearch,
+                max_results=max_results
             )
             if not results:
                 print("No news found.")
                 return
 
-            print("\nTop 3 News Results:")
+            print("\nTop {max_results} News Results:")
             print("=" * 50)
             for i, news in enumerate(results, 1):
                 print(f"\n[News {i}]")
