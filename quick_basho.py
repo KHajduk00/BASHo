@@ -9,7 +9,7 @@ from duckduckgo_search import DDGS
 from conversation_history import ConversationHandler
 
 # Version number for -h flag
-VERSION = "0.9.3"
+VERSION = "1.0.3"
 
 CONFIG = Path(__file__).parent / "config.json"
 MODELS: Dict[str, str] = {
