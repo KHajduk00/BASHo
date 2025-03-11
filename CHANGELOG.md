@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 - Image Search: Enable Linux-related image lookup
 - Ability to configure the behaviour of flags/app (more results, more convos, ability to change the prompts etc.)
 
+## [v1.0.3] - 2025-03-11
+### Added
+- Added a '-dev' flag that allows the user to fully customize some of the other flags, to change the behaviour of the assistant.
+### TODO
+- config file needs to get reworked to accomodate the prompts, and the amount of stored convos (together with turning off that feature if user wants to).
+
 ## [v0.9.2] - 2025-03-03
 ### Added
 - Added a '-h' flag that displays information like aviable models, aviable flags, and version of the app.

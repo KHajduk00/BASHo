@@ -60,7 +60,7 @@ Or:
    ```
 2. Wait a second or two to receive the answer.
 
-### Example of all flags/commands:
+### Example of some other flags/commands (for more of them, check '-h' flag):
 ```
 $ ask-basho
 Welcome to BASHō - Your Linux Terminal Assistant! Type 'exit' to quit.
@@ -124,11 +124,42 @@ Source: techsource
 (...)
 ```
 
+Loading the previous conversations:
+
 ```
 $ bsho -c<number>
 $ bsho -c3
 ```
  (aviable numbers are 5-1, where 5 is newest conversation and 1 is the oldest one)
+
+## Config (usage of -dev flag)
+The '-dev' flag will turn on nano by default to modify the config.json file.
+There you can create your own configuration to change the behaviour of certain flags (example):
+
+```json
+{
+  "model": "claude-3-haiku",
+  "search": {
+    "video": {
+      "max_results": 3,
+      "region": "wt-wt",
+      "safesearch": "moderate"
+    },
+    "text": {
+      "max_results": 5,
+      "region": "wt-wt",
+      "safesearch": "moderate"
+    },
+    "news": {
+      "max_results": 2,
+      "region": "wt-wt",
+      "safesearch": "moderate"
+    }
+  },
+  "editor": "vim"
+}
+```
+
 
 ## Dependencies
 - Python 3
@@ -147,23 +178,23 @@ rm -rf .venv
 - If you encounter issues, ensure your Python environment and dependencies are correctly installed.
 - IT REQUIRES INTERNET ACCESS
 
-## 📌 BASHō Roadmap
+### ✅ All Features:
 
-### ✅ Current Features:
-
-    AI-powered Linux assistant using multiple models via DuckDuckGo Search.
-    Simple terminal-based interaction.
-    Answers are concise and Linux-focused.
-    Uses duckduckgo_search API for responses.
-    Session History: Store recent queries and responses to go back to them, to load the conversation use '-c<number>' flag.
-    Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
-    Video Search: Find videos using 'bsho' command followed by '-v' flag.
-    Search Functionality: Find information using 'bsho' command followed by '-t' flag.
-    News search Functionality: Find news articles using 'bsho' command followed by '-n' flag.
+    - AI-powered Linux assistant using multiple models via DuckDuckGo Search.
+    - Simple terminal-based interaction.
+    - Answers are concise and Linux-focused.
+    - Uses duckduckgo_search API for responses.
+    - Session History: Store recent queries and responses to go back to them, to load the conversation use '-c<number>' flag.
+    - Quick question feature: use bsho followed by "<question>" to ask BASHō a quick question and receive quick answer.
+    - Video Search: Find videos using 'bsho' command followed by '-v' flag.
+    - Search Functionality: Find information using 'bsho' command followed by '-t' flag.
+    - News search Functionality: Find news articles using 'bsho' command followed by '-n' flag.
+    - Ability to customize the Assistant using the '-dev' flag
+    - '-h' flag, that allows displays the version of the app together with some useful information about aviable flags.
 
 ## Current Version:
 
-- v0.9.2 (check CHANGELOG.md or commits to keep track with changes).
+- v1.0.3 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.
