@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 - Image Search: Enable Linux-related image lookup
 - Ability to configure the behaviour of flags/app (more results, more convos, ability to change the prompts etc.)
 
+## [v1.1.3] - 2025-03-11
+### Added
+- Added a '-m <number>' flag that allows to change the amount of stored conversations, together with disabling them completely by setting them to 0
+
 ## [v1.0.3] - 2025-03-11
 ### Added
 - Added a '-dev' flag that allows the user to fully customize some of the other flags, to change the behaviour of the assistant.

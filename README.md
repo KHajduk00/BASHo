@@ -191,10 +191,11 @@ rm -rf .venv
     - News search Functionality: Find news articles using 'bsho' command followed by '-n' flag.
     - Ability to customize the Assistant using the '-dev' flag
     - '-h' flag, that allows displays the version of the app together with some useful information about aviable flags.
+    - '-m' flag, that allows to change the amount of stored conversations together with setting them to 0.
 
 ## Current Version:
 
-- v1.0.3 (check CHANGELOG.md or commits to keep track with changes).
+- v1.1.3 (check CHANGELOG.md or commits to keep track with changes).
 
 ## License
 BASHō is open-source and licensed under the MIT License.

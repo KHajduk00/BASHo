@@ -9,7 +9,7 @@ from duckduckgo_search import DDGS
 from conversation_history import ConversationHandler
 
 # Version number for -h flag
-VERSION = "1.0.3"
+VERSION = "1.1.3"
 
 CONFIG = Path(__file__).parent / "config.json"
 MODELS: Dict[str, str] = {
@@ -426,6 +426,7 @@ def display_help() -> None:
     print("  bsho -t \"your search query\"          Search for text/web results")
     print("  bsho -n \"your news search query\"     Search for news")
     print("  bsho -c<num>                         Continue conversation number <num> (1-5)")
+    print("  bsho -m <num>                        Change the amount of stored conversations or set them to zero")
     print("  bsho -dev                            Edit configuration file")
     print("  bsho -h                              Display this help message")
     print("\nAvailable models:")
