@@ -52,6 +52,9 @@ def load_config() -> Optional[Dict[str, any]]:
                         "region": "wt-wt",
                         "safesearch": "moderate"
                     }
+                if not "max_conversations" in config:
+                    config["max_conversations"] = 5
+                
                 if not "editor" in config:
                     config["editor"] = "nano"
                 
@@ -62,6 +65,9 @@ def load_config() -> Optional[Dict[str, any]]:
         except (json.JSONDecodeError, KeyError):
             pass
     return None
+
+
+
 
 def save_config(model: str, config: Optional[Dict] = None) -> None:
     """
@@ -99,6 +105,9 @@ def save_config(model: str, config: Optional[Dict] = None) -> None:
             "region": "wt-wt",
             "safesearch": "moderate"
         }
+    if not "max_conversations" in config:
+        config["max_conversations"] = 5
+
     if not "editor" in config:
         config["editor"] = "nano"
     
@@ -123,6 +132,25 @@ def edit_config() -> None:
     except Exception as e:
         print(f"Error opening editor: {e}")
         print(f"You can manually edit the config file at: {CONFIG}")
+
+def set_max_conversations(max_convos: int) -> None:
+    """
+    Set the maximum number of conversations to store.
+    
+    Args:
+        max_convos: Maximum number of conversations (0 for no storage)
+    """
+    config = load_config() or {}
+    config["max_conversations"] = max_convos
+    save_config(config.get("model", MODELS["1"]), config)
+    print(f"Maximum conversations set to: {max_convos}")
+    
+    if max_convos == 0:
+        conv_dir = Path(__file__).parent / "conversations"
+        if conv_dir.exists():
+            for file in conv_dir.glob("convo_*.json"):
+                file.unlink()
+            conv_dir.rmdir()
 
 def get_model() -> str:
     """
@@ -324,7 +352,15 @@ def load_conversation(convo_num: int) -> None:
     Args:
         convo_num: Number of the conversation to load (1-5)
     """
-    conversation_handler = ConversationHandler()
+    config = load_config()
+    max_conversations = config.get("max_conversations", 5)
+    
+    # Early return if conversations are disabled
+    if max_conversations <= 0:
+        print("Conversation storage is disabled. Use 'bsho -m <number>' to enable.")
+        return
+        
+    conversation_handler = ConversationHandler(max_conversations=max_conversations)
     prev_conversations = conversation_handler.get_conversations()
     
     if not prev_conversations:
@@ -359,7 +395,7 @@ def load_conversation(convo_num: int) -> None:
         visible_input = input("\nYou: ")
         
         if visible_input.lower() == 'exit':
-            if current_exchanges:
+            if current_exchanges and max_conversations > 0:
                 conversation_handler.save_conversation(model, current_exchanges)
             print("Jaa, mata ne! See you later!")
             break
@@ -416,6 +452,7 @@ def main() -> None:
         print("bsho -c<num> (Load and continue conversation number 1-5)")
         print("bsho -dev (Edit configuration file)")
         print("bsho -h (Display help and version information)")
+        print("bsho -m <number> (Set maximum stored conversations, 0 for no storage)")
         sys.exit(1)
     
     # Check if help flag was used
@@ -462,6 +499,21 @@ def main() -> None:
         search_news(sys.argv[2])
         return
 
+    if sys.argv[1] == "-m":
+        if len(sys.argv) < 3:
+            print("Please provide a number after -m flag")
+            sys.exit(1)
+        try:
+            max_convos = int(sys.argv[2])
+            if max_convos < 0:
+                print("Please provide a non-negative number")
+                sys.exit(1)
+            set_max_conversations(max_convos)
+            return
+        except ValueError:
+            print("Please provide a valid number")
+            sys.exit(1)
+    
     question = sys.argv[1]
     model = get_model()
     linux_context = "You are a Linux terminal assistant called BASHō. Your responses should be very concise and directly answer the user's question. One or two sentences maximum. Only provide Linux command examples or explanations when specifically asked. Don't list commands unless requested. Try to make the responses as short as possible. Answer: "
